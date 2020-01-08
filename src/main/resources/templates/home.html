@@ -17,10 +17,14 @@
         </thead>
         <tbody>
         <tr th:each="todo: ${todoList}" th:id="${todo.tid}">
-            <td><input class="completeCheckBox" th:if="${todo.completed}" type="checkbox" name="completed" checked>
+            <td>
+                <input class="completeCheckBox" th:if="${todo.completed}" type="checkbox" name="completed" checked>
                 <input class="completeCheckBox" th:unless="${todo.completed}" type="checkbox" name="completed">
             </td>
-            <td><a th:href='@{/view(tid=${todo.tid})}' th:text="${todo.contents}"></a></td>
+            <td>
+                <a th:if="${todo.completed}" th:href='@{/view(tid=${todo.tid})}' th:text="${todo.contents}" style="text-decoration: line-through;"></a>
+                <a th:unless="${todo.completed}" th:href='@{/view(tid=${todo.tid})}' th:text="${todo.contents}"></a>
+            </td>
             <td><input type="button" value="삭제" class="deleteTodo"></td>
         </tr>
         </tbody>

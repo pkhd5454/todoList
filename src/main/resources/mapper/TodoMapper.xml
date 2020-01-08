@@ -25,7 +25,7 @@
     </select>
 
     <select id="selectAllTodo" resultType="com.todolist.dto.TodoDTO">
-        select * from todo
+        select * from todo order by tid desc
     </select>
 
     <update id="toggleTodo">
