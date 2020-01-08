@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<div layout:fragment="content">
+    <form th:action="@{/register}" style="text-align: center">
+        할 일: <input name="contents" type="text" size="10px">
+        <input type="submit" value="등록">
+    </form>
+    <br>
+    <table border="1" th:inline="text" style="width: 50%; margin-left: auto; margin-right: auto; text-align: center">
+        <thead>
+        <tr>
+            <th>완료</th>
+            <th>할 일</th>
+            <th>&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="todo: ${todoList}" th:id="${todo.tid}">
+            <td><input class="completeCheckBox" th:if="${todo.completed}" type="checkbox" name="completed" checked>
+                <input class="completeCheckBox" th:unless="${todo.completed}" type="checkbox" name="completed">
+            </td>
+            <td><a th:href='@{/view(tid=${todo.tid})}' th:text="${todo.contents}"></a></td>
+            <td><input type="button" value="삭제" class="deleteTodo"></td>
+        </tr>
+        </tbody>
+    </table>
+    <form id="toggleForm" th:action="@{/toggle}">
+        <input type="hidden" id="toggleTid" name="tid">
+    </form>
+    <form id="deleteForm" th:action="@{/delete}">
+        <input type="hidden" id="deleteTid" name="tid">
+    </form>
+</div>
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+        $(document).ready(function () {
+            $(".deleteTodo").on("click", function () {
+                var tid = $(this).closest('tr').attr('id');
+                var deleteForm = $("#deleteForm");
+                $("#deleteTid").val(tid);
+                deleteForm.submit();
+            });
+
+            $(".completeCheckBox").on("click", function () {
+                var tid = $(this).closest('tr').attr('id');
+                var toggleForm = $("#toggleForm");
+                $("#toggleTid").val(tid);
+                toggleForm.submit();
+            });
+        });
+    </script>
+</th:block>

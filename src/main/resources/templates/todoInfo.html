@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<div layout:fragment="content">
+    <input type="hidden" th:value="${todo.tid}" id="tid">
+    <p>할 일</p>
+    <input type="text" th:value="${todo.contents}" id="contents">
+
+    <p>상태</p>
+    <input type="text" th:if="${todo.completed}" th:value="완료" readonly>
+    <input type="text" th:unless="${todo.completed}" th:value="진행중" readonly>
+
+    <p>등록일</p>
+    <input type="text" th:value="${#dates.format(todo.getCreated_time(), 'yyyy-MM-dd HH:mm:ss')}" readonly>
+
+    <p>수정일</p>
+    <input type="text" th:value="${#dates.format(todo.getModified_time(), 'yyyy-MM-dd HH:mm:ss')}" readonly>
+
+    <br>
+    <br>
+    <form th:action="@{/modify}" id="modifyForm">
+        <input type="hidden" name="tid" id="tidForm">
+        <input type="hidden" name="contents" id="contentsForm">
+    </form>
+    <input type="button" value="수정" id="modifyTodo">
+    <input type="button" value="목록" onclick="location.href='/home'">
+</div>
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+        $(document).ready(function () {
+            $("#modifyTodo").on("click", function () {
+                var tid = $("#tid").val();
+                var contents = $("#contents").val();
+                $("#tidForm").val(tid);
+                $("#contentsForm").val(contents);
+                $("#modifyForm").submit();
+            });
+        });
+    </script>
+</th:block>

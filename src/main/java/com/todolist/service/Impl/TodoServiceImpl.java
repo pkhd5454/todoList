@@ -4,13 +4,14 @@ import com.todolist.dto.TodoDTO;
 import com.todolist.mapper.TodoMapper;
 import com.todolist.service.TodoService;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class TodoServiceImpl implements TodoService {
-    @Mapper
+    @Autowired
     TodoMapper todoMapper;
 
     @Override

@@ -4,8 +4,7 @@
 <mapper namespace="com.todolist.mapper.TodoMapper">
     <insert id="insertTodo" parameterType="com.todolist.dto.TodoDTO">
         <![CDATA[
-            insert into todo (title, content, priority)
-            values (#{t.title}, #{t.content}, #{t.priority})
+            insert into todo (contents) values (#{t.contents})
         ]]>
     </insert>
 
@@ -16,8 +15,7 @@
     <update id="updateTodo" parameterType="com.todolist.dto.TodoDTO">
         <![CDATA[
             update todo
-            set tid = #{t.tid}, title = #{t.title}, content = #{t.content},
-            created_time = #{t.created_time}, modified_time = now(), priority = #{t.priority}
+            set contents = #{t.contents}, modified_time = now()
             where tid = #{t.tid};
         ]]>
     </update>
