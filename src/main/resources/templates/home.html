@@ -22,7 +22,8 @@
                 <input class="completeCheckBox" th:unless="${todo.completed}" type="checkbox" name="completed">
             </td>
             <td>
-                <a th:if="${todo.completed}" th:href='@{/view(tid=${todo.tid})}' th:text="${todo.contents}" style="text-decoration: line-through;"></a>
+                <a th:if="${todo.completed}" th:href='@{/view(tid=${todo.tid})}' th:text="${todo.contents}"
+                   style="text-decoration: line-through;"></a>
                 <a th:unless="${todo.completed}" th:href='@{/view(tid=${todo.tid})}' th:text="${todo.contents}"></a>
             </td>
             <td><input type="button" value="삭제" class="deleteTodo"></td>
@@ -30,10 +31,10 @@
         </tbody>
     </table>
     <form id="toggleForm" th:action="@{/toggle}">
-        <input type="hidden" id="toggleTid" name="tid">
+        <input type="hidden" id="toggleTidInput" name="tid">
     </form>
     <form id="deleteForm" th:action="@{/delete}">
-        <input type="hidden" id="deleteTid" name="tid">
+        <input type="hidden" id="deleteTidInput" name="tid">
     </form>
 </div>
 <th:block layout:fragment="script">
@@ -42,14 +43,14 @@
             $(".deleteTodo").on("click", function () {
                 var tid = $(this).closest('tr').attr('id');
                 var deleteForm = $("#deleteForm");
-                $("#deleteTid").val(tid);
+                $("#deleteTidInput").val(tid);
                 deleteForm.submit();
             });
 
             $(".completeCheckBox").on("click", function () {
                 var tid = $(this).closest('tr').attr('id');
                 var toggleForm = $("#toggleForm");
-                $("#toggleTid").val(tid);
+                $("#toggleTidInput").val(tid);
                 toggleForm.submit();
             });
         });

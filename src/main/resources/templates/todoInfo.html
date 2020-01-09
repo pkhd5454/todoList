@@ -11,28 +11,28 @@
     <input type="text" th:unless="${todo.completed}" th:value="진행중" readonly>
 
     <p>등록일</p>
-    <input type="text" th:value="${#dates.format(todo.getCreated_time(), 'yyyy-MM-dd HH:mm:ss')}" readonly>
+    <input type="text" th:value="${todo.getCreated_time()}" readonly>
 
     <p>수정일</p>
-    <input type="text" th:value="${#dates.format(todo.getModified_time(), 'yyyy-MM-dd HH:mm:ss')}" readonly>
+    <input type="text" th:value="${todo.getModified_time()}" readonly>
 
     <br>
     <br>
     <form th:action="@{/modify}" id="modifyForm">
-        <input type="hidden" name="tid" id="tidForm">
-        <input type="hidden" name="contents" id="contentsForm">
+        <input type="hidden" name="tid" id="tidInput">
+        <input type="hidden" name="contents" id="contentsInput">
     </form>
-    <input type="button" value="수정" id="modifyTodo">
+    <input type="button" value="수정" id="modifyBtn">
     <input type="button" value="목록" onclick="location.href='/home'">
 </div>
 <th:block layout:fragment="script">
     <script th:inline="javascript">
         $(document).ready(function () {
-            $("#modifyTodo").on("click", function () {
+            $("#modifyBtn").on("click", function () {
                 var tid = $("#tid").val();
                 var contents = $("#contents").val();
-                $("#tidForm").val(tid);
-                $("#contentsForm").val(contents);
+                $("#tidInput").val(tid);
+                $("#contentsInput").val(contents);
                 $("#modifyForm").submit();
             });
         });

@@ -68,10 +68,10 @@ public class TodoMapperTest {
         System.out.println(list.size());
     }*/
 
-    @Test
+    /*@Test
     public void toggleTodo() {
         mapper.toggleTodo(10);
-    }
+    }*/
 
 
 }

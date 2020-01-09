@@ -5,20 +5,17 @@ import com.todolist.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/")
 public class TodoController {
     @Autowired
     TodoService todoService;
 
     @GetMapping("/register")
-    public String registerTodo(@RequestParam("contents") String contents) {
-        TodoDTO todoDTO = new TodoDTO();
-        todoDTO.setContents(contents);
+    public String registerTodo(@ModelAttribute TodoDTO todoDTO) {
         todoService.insertTodo(todoDTO);
         return "redirect:/home";
     }

@@ -2,13 +2,13 @@ package com.todolist.dto;
 
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 public class TodoDTO {
     private int tid;
     private String contents;
-    private Date created_time;
-    private Date modified_time;
+    private LocalDateTime created_time;
+    private LocalDateTime modified_time;
     private boolean completed;
 }

@@ -35,7 +35,7 @@ public class TodoServiceTests {
         todoService.updateTodo(dto);
     }*/
 
-    @Test
+    /*@Test
     public void selectTest() {
         TodoDTO dto = todoService.selectTodo(11);
         System.out.println(dto.getContents());
@@ -43,5 +43,5 @@ public class TodoServiceTests {
         List<TodoDTO> list = todoService.selectAllTodo();
         System.out.println(list.get(0).getContents());
         System.out.println(list.get(1).getContents());
-    }
+    }*/
 }
