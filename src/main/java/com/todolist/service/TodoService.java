@@ -15,6 +15,6 @@ public interface TodoService {
 
     List<TodoDTO> selectAllTodo();
 
-    void toggle(int tid);
+    void toggleTodoState(int tid);
 
 }

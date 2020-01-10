@@ -24,7 +24,7 @@
         select * from todo order by tid desc
     </select>
 
-    <update id="toggleTodo">
+    <update id="toggleTodoState">
         update todo set completed = abs(completed-1), modified_time = now() where tid = #{tid}
     </update>
 

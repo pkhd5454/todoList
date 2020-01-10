@@ -2,7 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <div layout:fragment="content">
-    <form th:action="@{/register}" style="text-align: center">
+    <form th:action="@{/register}" style="text-align: center" method="post">
         할 일: <input name="contents" type="text" size="10px">
         <input type="submit" value="등록">
     </form>
@@ -10,7 +10,7 @@
     <table border="1" th:inline="text" style="width: 50%; margin-left: auto; margin-right: auto; text-align: center">
         <thead>
         <tr>
-            <th>완료</th>
+            <th>상태</th>
             <th>할 일</th>
             <th>&nbsp;</th>
         </tr>
@@ -18,41 +18,19 @@
         <tbody>
         <tr th:each="todo: ${todoList}" th:id="${todo.tid}">
             <td>
-                <input class="completeCheckBox" th:if="${todo.completed}" type="checkbox" name="completed" checked>
-                <input class="completeCheckBox" th:unless="${todo.completed}" type="checkbox" name="completed">
+                <form th:action="@{/toggle}">
+                    <input type="hidden" name="tid" th:value="${todo.tid}">
+                    <input class="completeCheckBox" type="submit" name="completed" th:text="${todo.completed ? '완료' : '진행중'}">
+                </form>
             </td>
             <td>
-                <a th:if="${todo.completed}" th:href='@{/view(tid=${todo.tid})}' th:text="${todo.contents}"
-                   style="text-decoration: line-through;"></a>
-                <a th:unless="${todo.completed}" th:href='@{/view(tid=${todo.tid})}' th:text="${todo.contents}"></a>
+                <a th:href='@{/view(tid=${todo.tid})}' th:text="${todo.contents}" th:style="${todo.completed ? 'text-decoration:line-through' : ''}"></a>
             </td>
-            <td><input type="button" value="삭제" class="deleteTodo"></td>
+            <form th:action="@{/delete}">
+                <input type="hidden" name="tid" th:value="${todo.tid}">
+                <td><input type="submit" value="삭제" class="deleteTodo"></td>
+            </form>
         </tr>
         </tbody>
     </table>
-    <form id="toggleForm" th:action="@{/toggle}">
-        <input type="hidden" id="toggleTidInput" name="tid">
-    </form>
-    <form id="deleteForm" th:action="@{/delete}">
-        <input type="hidden" id="deleteTidInput" name="tid">
-    </form>
 </div>
-<th:block layout:fragment="script">
-    <script th:inline="javascript">
-        $(document).ready(function () {
-            $(".deleteTodo").on("click", function () {
-                var tid = $(this).closest('tr').attr('id');
-                var deleteForm = $("#deleteForm");
-                $("#deleteTidInput").val(tid);
-                deleteForm.submit();
-            });
-
-            $(".completeCheckBox").on("click", function () {
-                var tid = $(this).closest('tr').attr('id');
-                var toggleForm = $("#toggleForm");
-                $("#toggleTidInput").val(tid);
-                toggleForm.submit();
-            });
-        });
-    </script>
-</th:block>

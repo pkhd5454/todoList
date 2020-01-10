@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -14,7 +15,7 @@ public class TodoController {
     @Autowired
     TodoService todoService;
 
-    @GetMapping("/register")
+    @PostMapping("/register")
     public String registerTodo(@ModelAttribute TodoDTO todoDTO) {
         todoService.insertTodo(todoDTO);
         return "redirect:/home";
@@ -33,7 +34,7 @@ public class TodoController {
         return "todoInfo";
     }
 
-    @GetMapping("/modify")
+    @PostMapping("/modify")
     public String modifyTodo(@ModelAttribute TodoDTO todoDTO) {
         todoService.updateTodo(todoDTO);
         return "redirect:/home";
@@ -41,7 +42,7 @@ public class TodoController {
 
     @GetMapping("/toggle")
     public String toggleTodo(@RequestParam("tid") int tid) {
-        todoService.toggle(tid);
+        todoService.toggleTodoState(tid);
         return "redirect:/home";
     }
 }

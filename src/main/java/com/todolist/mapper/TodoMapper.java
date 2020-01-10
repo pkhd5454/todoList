@@ -18,5 +18,5 @@ public interface TodoMapper {
 
     List<TodoDTO> selectAllTodo();
 
-    void toggleTodo(int tid);
+    void toggleTodoState(int tid);
 }
